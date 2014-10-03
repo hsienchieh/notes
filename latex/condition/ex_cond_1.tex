@@ -1,0 +1,22 @@
+\documentclass[11pt, letterpaper]{article}
+\usepackage{etoolbox}
+
+\newtoggle{long}
+
+\input{toggle.tex}
+
+
+\begin{document}
+
+\section{Section 1}
+Something in common here
+
+\section{Section 2}
+Something we want to conditionally process.
+
+\iftoggle{long}{
+    \input{long.tex}
+}{
+    \input{short.tex}
+}
+\end{document}

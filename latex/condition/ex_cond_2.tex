@@ -1,0 +1,17 @@
+\documentclass[11pt, letterpaper]{article}
+\usepackage{ifthen}
+
+\begin{document}
+
+\section{Section 1}
+Something in common here
+
+\section{Section 2}
+Something we want to conditionally process.
+
+\ifthenelse{\equal{\detokenize{ex_cond_2_long}}{\jobname}}{
+    \input{long.tex}
+}{
+    \input{short.tex}
+}
+\end{document}

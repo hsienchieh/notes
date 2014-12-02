@@ -92,11 +92,11 @@ echo ${redminefn} | grep -q "^redmine-"
 if [ $? -ne 0 ]; then
     echo -e "\nError: failed to determine the lastest version of Redmine."
 fi
-echo "done [Redmine <= ${redminefn}]"
+echo "done [${redminefn}]"
 
 
 # switch to ${WEBROOTPARENT}
-echo -n "Info: switch to directory ${WEBROOTPARENT} ... "
+echo -n "Info: switching to directory ${WEBROOTPARENT} ... "
 
 if [ ! -d ${WEBROOTPARENT} ]; then
 	echo -e "\nError: directory ${WEBROOTPARENT} does not exist."
@@ -117,14 +117,18 @@ echo "done"
 
 echo -n "Info: downloading Redmine ... "
 
-redmineurl=http://www.redmine.org/releases/${redminefn}
-wget -q ${redmineurl}
+if [ ! -f ${redminefn} ]; then
+    redmineurl=http://www.redmine.org/releases/${redminefn}
+    wget -q ${redmineurl}
 
-if [ $? -ne 0 ]; then
-    echo -e "\nError: failed to download Redmine archive ${redmineurl}."
-    exit 1
+    if [ $? -ne 0 ]; then
+        echo -e "\nError: failed to download Redmine archive ${redmineurl}."
+        exit 1
+    fi
+    echo "done"
+else
+    echo "already downloaded"
 fi
-echo "done"
 
 
 # extract Redmine
@@ -150,7 +154,7 @@ echo "done"
 
 RM_HOME=${WEBROOTPARENT}/${redminedirname}
 GEM_HOME=${RM_HOME}/.bundle
-RAKE=${GEM_HOME}/ruby/bin/rake
+RAKE=rake
 
 if [ -z ${RM_HOME} -o ! -d ${RM_HOME} ]; then
 	echo "Error: The path to Redmine is not a valid path: ${RM_HOME}"

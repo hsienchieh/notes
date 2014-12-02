@@ -1,7 +1,35 @@
 #!/bin/bash
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>
+#
+
 
 #
-# change to your choices
+# This script attempts to automate the process of setting up the latest
+# version of Redmine on a recent version of Fedora Linux, e.g., 
+# Fedora Linux 20. 
+#
+# This script is created by the author of the blog post at
+#   http://notesofaprogrammer.blogspot.com/2014/12/a-script-to-install-redmine-on-fedora.html
+#
+
+
+
+
+
+#
+# change password and hostname to your actual choices
 #
 
 PGDBPASSWD=my_password
@@ -318,15 +346,15 @@ echo -n "Info: configuring Phusion Passenger for Apache HTTP Server ... "
 
 grep -q "ServerName ${HOSTNAME}" /etc/httpd/conf.d/passenger.conf
 if [ $? -ne 0 ]; then
-    echo "<virtualhost *:80>
+    echo "<VirtualHost *:80>
   SetEnv GEM_HOME ${GEM_HOME}/ruby
   ServerName ${HOSTNAME}
   DocumentRoot ${RM_HOME}/public
-  <directory ${RM_HOME}/public>
-  AllowOverride all
-  Options -MultiViews
-  </directory>
-</virtualhost>" >> /etc/httpd/conf.d/passenger.conf
+  <Directory ${RM_HOME}/public>
+    AllowOverride all
+    Options -MultiViews
+  </Directory>
+</VirtualHost>" >> /etc/httpd/conf.d/passenger.conf
 else
     echo -e "\nWarn: it appears that the configuration for Phusion Passenger is already in place"
 fi
@@ -396,4 +424,4 @@ rm -f ${WEBROOTPARENT}/${redminefn}
 #
 # declare victory
 # 
-echo "\n\nInfo: finished setting up Redmine"
+echo -e "\n\nInfo: finished setting up Redmine"

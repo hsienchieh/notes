@@ -31,12 +31,6 @@ if [ -z ${RM_HOME} -o ! -d ${RM_HOME} ]; then
 	exit 1
 fi
 
-if [ -z ${GEM_HOME}/ruby -o ! -d ${GEM_HOME}/ruby ]; then
-	echo Error: The path to Redmine\'s GEM files is not a valid path: ${GEM_HOME}.
-	exit 1
-fi
-
-
 APACHE_USER=apache
 
 ###########################################################

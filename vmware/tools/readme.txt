@@ -53,3 +53,13 @@ Usage/installing:
 You will need to log off and on or restart for it to take effect (in your VM). 
 You MUST be logged into the VM in order to use Unity mode, otherwise you will
 get an error that the resolution can not be changed.
+
+
+install gnome-session fallback 
+
+sudo apt-get update
+sudo apt-get install gnome-session-fallback
+
+wget https://raw.githubusercontent.com/graychan/notes/master/vmware/tools/vmware-xdg-detect-de
+sudo cp vmware-xdg-detect-de /usr/bin/vmware-xdg-detect-de
+
